@@ -1,0 +1,9 @@
+扫码：
+1.首先到submit提交页提交，进入JhQueryControll。
+2.获取前台的请求request参数，并将其转换成Map类型，假设对象为map。
+3.new一个JhCodeIelpmService（继承于AbstractIelpmService抽象类）对象，例如为a；用a.execute（map）方法发送请求。
+	发送请求有如下内容（execute方法的执行业务）：
+	a.解析并转换参数：把传进来的map参数（商户的信息）写到一个新的reqMap里，并为该商品添加额外的必须的参数，例如：商户号，流水号，入驻Id，后台通知，前台通知，优惠明细，附加参数等信息。之后进行参数检查（参数检查放在CheckUtil里）。
+	b.添加签名 排序字段：添加签名使用addSign(reqMap)方法,因需要排序字段，所以其返回值为一个TreeMap类型treeReqMap。
+	c.发送请求:String responseStr = sendRequest(treeReqMap);
+	d.验证签名并且解析响应：signVerifyAndResponseAnalysis(responseStr)
